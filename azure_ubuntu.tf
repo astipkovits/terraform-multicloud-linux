@@ -56,7 +56,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
 module "run_command_linux" {
   source = "registry.terraform.io/libre-devops/run-vm-command/azurerm"
   count = ((var.command != "") && (var.cloud == "azure")) ? 1 : 0 
-  depends_on = [azurerm_linux_virtual_machine[0].linux_vm]
+  depends_on = [azurerm_linux_virtual_machine.linux_vm[0]]
   
   location   = var.region
   rg_name    = var.azure_resource_group
