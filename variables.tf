@@ -32,7 +32,7 @@ variable "admin_password" {
 
 variable "aws_key_name" {
     description = "SSH key name used to log into AWS instance"
-    type = sring
+    type = string
     default = ""
 }
 
