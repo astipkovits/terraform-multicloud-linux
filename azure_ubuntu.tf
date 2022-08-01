@@ -21,7 +21,7 @@ resource "azurerm_network_interface" "linux_vm_iface" {
     name                          = "internal"
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.linux_vm_pubip.id
+    public_ip_address_id = azurerm_public_ip.linux_vm_pubip[count.index].id
   }
 }
 
@@ -34,7 +34,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   admin_username      = var.admin_username
   tags                = var.tags
   network_interface_ids = [
-    azurerm_network_interface.linux_vm_iface.id,
+    azurerm_network_interface.linux_vm_iface[count.index].id,
   ]
 
   disable_password_authentication = false
@@ -56,7 +56,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
 module "run_command_linux" {
   source = "registry.terraform.io/libre-devops/run-vm-command/azurerm"
   count = ((var.command != "") && (var.cloud == "azure")) ? 1 : 0 
-  depends_on = [azurerm_linux_virtual_machine.linux_vm]
+  depends_on = [azurerm_linux_virtual_machine[count.index].linux_vm]
   
   location   = var.region
   rg_name    = var.azure_resource_group
