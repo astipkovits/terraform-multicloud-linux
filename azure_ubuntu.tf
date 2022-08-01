@@ -5,7 +5,7 @@
 resource "azurerm_public_ip" "linux_vm_pubip" {
   count = var.cloud == "azure" ? 1 :0
   name                = "${var.name}-pub-ip"
-  resource_group_name = var.resource_group
+  resource_group_name = var.azure_resource_group
   location            = var.region
   allocation_method   = "Static"
 
@@ -15,7 +15,7 @@ resource "azurerm_network_interface" "linux_vm_iface" {
   count = var.cloud == "azure" ? 1 :0
   name                = "${var.name}-nic"
   location            = var.region
-  resource_group_name = var.resource_group
+  resource_group_name = var.azure_resource_group
 
   ip_configuration {
     name                          = "internal"
@@ -28,7 +28,7 @@ resource "azurerm_network_interface" "linux_vm_iface" {
 resource "azurerm_linux_virtual_machine" "linux_vm" {
   count = var.cloud == "azure" ? 1 :0
   name                = "${var.name}-vm"
-  resource_group_name = var.resource_group
+  resource_group_name = var.azure_resource_group
   location            = var.region
   size                = var.size
   admin_username      = var.admin_username
@@ -59,7 +59,7 @@ module "run_command_linux" {
   depends_on = [azurerm_linux_virtual_machine.linux_vm]
   
   location   = var.region
-  rg_name    = var.resource_group
+  rg_name    = var.azure_resource_group
   vm_name    = "${var.name}-vm"
   os_type    = "linux"
 
