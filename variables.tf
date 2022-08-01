@@ -18,6 +18,12 @@ variable "cloud" {
   }
 }
 
+variable "tags" {
+  description = "Tags to apply on instance"
+  type = map
+  default = null
+}
+
 variable "admin_username" {
   description = "The username to log into the instance"
   type    = string

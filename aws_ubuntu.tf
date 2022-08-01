@@ -1,6 +1,7 @@
 #AWS cloud
 #---------------------------------
 
+/*
 #Create SG to allow SSH in
 resource "aws_security_group" "allow_ssh" {
   count = var.cloud == "aws" ? 1 :0 
@@ -36,3 +37,4 @@ module "ec2_instance" {
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
   subnet_id              = var.subnet_id
 }
+*/

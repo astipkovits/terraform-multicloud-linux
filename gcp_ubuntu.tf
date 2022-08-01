@@ -1,6 +1,7 @@
 #Google cloud
 #---------------------------------
 
+/*
 resource "google_compute_instance" "vm_instance" {
   count = var.cloud == "gcp" ? 1 :0 
   name         = var.name  
@@ -24,3 +25,4 @@ resource "google_compute_instance" "vm_instance" {
     #}
   }
 }
+*/
