@@ -55,6 +55,7 @@ variable "subnet_id" {
  variable "vpc_id" {
   description = "The ID of the subnet for the instance. In the case of GCP this is the name of the VPC."  
   type = string
+  default = ""
  }
 
  variable "command" {
