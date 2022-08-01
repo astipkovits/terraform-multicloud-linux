@@ -7,12 +7,6 @@ provider "azurerm" {
   tenant_id       = var.azure_tenant_id
 }
 
-provider "aviatrix" {
-  username      = var.controller_user
-  controller_ip = var.controller_ip
-  password      = var.controller_pass
-}
-
 provider "aws" {
   access_key = var.aws_access_key
   secret_key = var.aws_secret_key
