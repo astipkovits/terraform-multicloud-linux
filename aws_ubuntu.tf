@@ -25,6 +25,7 @@ module "ec2_instance" {
   version = "~> 3.0"
 
   name = var.name
+  associate_public_ip_address = true
 
   #Ubuntu AMI
   ami           = "ami-042ad9eec03638628"
