@@ -19,6 +19,7 @@ resource "aws_security_group" "allow_ssh" {
 }
 
 #Create AWS Linux VM in spoke
+#https://github.com/terraform-aws-modules/terraform-aws-ec2-instance
 module "ec2_instance" {
   count = var.cloud == "aws" ? 1 :0 
   source  = "terraform-aws-modules/ec2-instance/aws"
