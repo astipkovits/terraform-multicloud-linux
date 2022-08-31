@@ -16,6 +16,14 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "ICMP inbound"
+    from_port   = 8 //any source port
+    to_port     = 0
+    protocol    = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
 
 #Create AWS Linux VM in spoke
@@ -34,7 +42,7 @@ module "ec2_instance" {
   key_name      = var.aws_key_name
   monitoring    = true
 
-  #SG allowing nothing SSH in
+  #SG allowing SSH and ICMP in
   vpc_security_group_ids = [aws_security_group.allow_ssh[count.index].id]
   subnet_id              = var.subnet_id
 }
