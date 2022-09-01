@@ -26,6 +26,7 @@ resource "azurerm_network_interface" "linux_vm_iface" {
 }
 
 resource "azurerm_network_security_group" "nsg1" {
+  count = var.cloud == "azure" ? 1 :0
   name                = "${var.name}-nsg"
   location            = var.region
   resource_group_name = var.azure_resource_group
@@ -80,6 +81,7 @@ resource "azurerm_network_security_group" "nsg1" {
 }
 
 resource "azurerm_network_interface_security_group_association" "nsg_assoc" {
+  count = var.cloud == "azure" ? 1 :0
   network_interface_id      = azurerm_network_interface.linux_vm_iface[count.index].id
   network_security_group_id = azurerm_network_security_group.nsg1
 }
