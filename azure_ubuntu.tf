@@ -82,7 +82,7 @@ resource "azurerm_network_security_group" "nsg1" {
 
 resource "azurerm_network_interface_security_group_association" "nsg_assoc" {
   count = var.cloud == "azure" ? 1 :0
-  network_interface_id      = azurerm_network_interface.linux_vm_iface[count.index].id
+  network_interface_id      = azurerm_network_interface.linux_vm_iface[0].id
   network_security_group_id = azurerm_network_security_group.nsg1
 }
 
