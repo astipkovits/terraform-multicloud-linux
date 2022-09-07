@@ -70,7 +70,7 @@ module "ec2_instance" {
   associate_public_ip_address = true
 
   #Ubuntu AMI
-  ami           = "${data.aws_ami.ubuntu.id}"  #"ami-042ad9eec03638628"
+  ami           = "${data.aws_ami.ubuntu[0].id}"  #"ami-042ad9eec03638628"
   instance_type = var.size
   key_name      = var.aws_key_name
   monitoring    = true
