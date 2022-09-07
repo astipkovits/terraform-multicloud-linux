@@ -42,6 +42,23 @@ resource "aws_security_group" "allow_ssh" {
 
 }
 
+data "aws_ami" "ubuntu" {
+  count = var.cloud == "aws" ? 1 :0 
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
 #Create AWS Linux VM in spoke
 #https://github.com/terraform-aws-modules/terraform-aws-ec2-instance
 module "ec2_instance" {
@@ -53,7 +70,7 @@ module "ec2_instance" {
   associate_public_ip_address = true
 
   #Ubuntu AMI
-  ami           = "ami-042ad9eec03638628"
+  ami           = "${data.aws_ami.ubuntu.id}"  #"ami-042ad9eec03638628"
   instance_type = var.size
   key_name      = var.aws_key_name
   monitoring    = true
