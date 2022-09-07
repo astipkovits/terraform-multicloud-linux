@@ -24,6 +24,14 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "Any 10-8 inbound"
+    from_port   = 0 //any source port
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["10.0.0.0/8"]
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
